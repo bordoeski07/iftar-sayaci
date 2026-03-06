@@ -320,10 +320,12 @@ body {
 }
 
 .calendar-row.today {
-    background: rgba(46, 139, 87, 0.2);
-    border: 1px solid rgba(46, 139, 87, 0.5);
-    color: #a8e6cf;
-    font-weight: 400;
+    background: rgba(0, 255, 0, 0.15);
+    /* Bright Green background */
+    border: 1px solid rgba(0, 255, 0, 0.6);
+    color: #4ade80;
+    /* Bright modern green text */
+    font-weight: 500;
 }
 
 .calendar-date {
