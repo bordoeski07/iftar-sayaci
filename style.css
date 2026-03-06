@@ -8,7 +8,10 @@
     --row-bg: rgba(255, 255, 255, 0.05);
     --scroll-track: rgba(255, 255, 255, 0.05);
     --scroll-thumb: rgba(255, 255, 255, 0.2);
+    --mosque-color: #111111;
 }
+
+
 
 body.theme-black {
     --bg-color: #000000;
@@ -16,16 +19,18 @@ body.theme-black {
     --accent-color: #ffffff;
     --accent-glow: rgba(255, 255, 255, 0.2);
     --timer-color: #ffffff;
+    --mosque-color: #0a0a0a;
     background: var(--bg-color);
 }
 
 body.theme-mosque {
-    --bg-color: #091221;
+    --bg-color: #001f3f;
     --text-color: #e2e8f0;
     --accent-color: #f6ad55;
     --accent-glow: rgba(246, 173, 85, 0.2);
     --timer-color: #ffffff;
-    background: radial-gradient(circle at bottom center, #1b2742 0%, #091221 100%);
+    --mosque-color: #f6ad55;
+    background: radial-gradient(circle at bottom center, #003366 0%, #001f3f 100%);
 }
 
 body.theme-arabesque {
@@ -52,6 +57,7 @@ body.theme-light {
     --row-bg: rgba(0, 0, 0, 0.05);
     --scroll-track: rgba(0, 0, 0, 0.05);
     --scroll-thumb: rgba(0, 0, 0, 0.2);
+    --mosque-color: #e2e8f0;
     background: var(--bg-color);
 }
 
@@ -87,6 +93,27 @@ body {
     cursor: default;
 }
 
+.mosque-silhouette {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    max-height: 35vh;
+    z-index: 0;
+    color: var(--mosque-color);
+    pointer-events: none;
+    transition: color 0.5s ease;
+    overflow: hidden;
+}
+
+.mosque-silhouette svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-origin: bottom;
+}
+
 .container {
     width: 100%;
     height: 100%;
@@ -97,6 +124,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1;
+    position: relative;
 }
 
 /* Loader */
@@ -471,7 +500,7 @@ body {
 }
 
 .theme-preview.mosque {
-    background: linear-gradient(135deg, #1b2742, #091221);
+    background: linear-gradient(135deg, #003366, #001f3f);
 }
 
 .theme-preview.arabesque {
