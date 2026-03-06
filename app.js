@@ -30,17 +30,117 @@ const imsakiye2026 = {
     "2026-03-19": { imsak: "05:38", iftar: "19:21" }
 };
 
+let currentTheme = 'black';
+
 document.addEventListener('DOMContentLoaded', initApp);
 
 let countdownInterval = null;
 
 function initApp() {
+    loadTheme();
     document.getElementById('loader').classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');
 
     buildCalendarList();
     setupAccordion();
+    setupThemeAccordion();
     startCountdown();
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('sahur_theme') || 'black';
+    setTheme(savedTheme, false);
+}
+
+function setTheme(themeName, save = true) {
+    currentTheme = themeName;
+    if (save) {
+        localStorage.setItem('sahur_theme', themeName);
+    }
+
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        if (btn.dataset.theme === themeName) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    applyThemeClass();
+}
+
+function applyThemeClass() {
+    if (currentTheme === 'dynamic') {
+        applyDynamicTheme();
+    } else {
+        const targetClass = 'theme-' + currentTheme;
+        if (!document.body.classList.contains(targetClass)) {
+            document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
+            if (document.body.className) {
+                document.body.className += ' ' + targetClass;
+            } else {
+                document.body.className = targetClass;
+            }
+        }
+    }
+}
+
+function applyDynamicTheme() {
+    if (currentTheme !== 'dynamic') return;
+
+    const now = new Date();
+    let isDaytime = false;
+    const todayStr = getTodayStr(now);
+
+    if (imsakiye2026[todayStr]) {
+        const imsakTime = parseTime(todayStr, imsakiye2026[todayStr].imsak);
+        const iftarTime = parseTime(todayStr, imsakiye2026[todayStr].iftar);
+
+        if (now >= imsakTime && now < iftarTime) {
+            isDaytime = true;
+        }
+    } else {
+        const hour = now.getHours();
+        if (hour >= 6 && hour < 18) {
+            isDaytime = true;
+        }
+    }
+
+    const targetClass = isDaytime ? 'theme-light' : 'theme-black';
+    if (!document.body.classList.contains(targetClass)) {
+        document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
+        if (document.body.className) {
+            document.body.className += ' ' + targetClass;
+        } else {
+            document.body.className = targetClass;
+        }
+    }
+}
+
+function setupThemeAccordion() {
+    const btn = document.getElementById('theme-btn');
+    if (!btn) return;
+    const content = document.getElementById('theme-content');
+    const arrow = btn.querySelector('.arrow');
+
+    btn.addEventListener('click', () => {
+        const isOpen = content.style.maxHeight;
+        if (isOpen && isOpen !== "0px") {
+            content.style.maxHeight = "0px";
+            arrow.classList.remove('open');
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            arrow.classList.add('open');
+        }
+    });
+
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const theme = btn.dataset.theme;
+            setTheme(theme);
+        });
+    });
 }
 
 function getTodayStr(date) {
@@ -204,6 +304,10 @@ function updateTimer() {
     updateDisplayParts(diff);
     document.getElementById('title').textContent = targetName;
     document.getElementById('target-info').innerHTML = `Hedef Vakit: <span id="target-time">${targetDisplayStr}</span>`;
+
+    if (currentTheme === 'dynamic') {
+        applyThemeClass();
+    }
 }
 
 function updateDisplayParts(diffMs) {

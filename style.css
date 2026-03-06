@@ -3,6 +3,56 @@
     --text-color: #ffffff;
     --accent-color: #ffffff;
     --accent-glow: rgba(255, 255, 255, 0.2);
+    --timer-color: #ffffff;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --row-bg: rgba(255, 255, 255, 0.05);
+    --scroll-track: rgba(255, 255, 255, 0.05);
+    --scroll-thumb: rgba(255, 255, 255, 0.2);
+}
+
+body.theme-black {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --accent-color: #ffffff;
+    --accent-glow: rgba(255, 255, 255, 0.2);
+    --timer-color: #ffffff;
+    background: var(--bg-color);
+}
+
+body.theme-mosque {
+    --bg-color: #091221;
+    --text-color: #e2e8f0;
+    --accent-color: #f6ad55;
+    --accent-glow: rgba(246, 173, 85, 0.2);
+    --timer-color: #ffffff;
+    background: radial-gradient(circle at bottom center, #1b2742 0%, #091221 100%);
+}
+
+body.theme-arabesque {
+    --bg-color: #1a0f14;
+    --text-color: #fdf2f8;
+    --accent-color: #f472b6;
+    --accent-glow: rgba(244, 114, 182, 0.2);
+    --timer-color: #ffffff;
+    background-color: var(--bg-color);
+    background-image:
+        radial-gradient(#2a1921 2px, transparent 2px),
+        radial-gradient(#2a1921 2px, transparent 2px);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+}
+
+body.theme-light {
+    --bg-color: #f0f4f8;
+    --text-color: #1a202c;
+    --accent-color: #2b6cb0;
+    --accent-glow: rgba(43, 108, 176, 0.2);
+    --timer-color: #1a202c;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --row-bg: rgba(0, 0, 0, 0.05);
+    --scroll-track: rgba(0, 0, 0, 0.05);
+    --scroll-thumb: rgba(0, 0, 0, 0.2);
+    background: var(--bg-color);
 }
 
 * {
@@ -111,6 +161,7 @@ body {
     line-height: 1;
     font-variant-numeric: tabular-nums;
     text-shadow: 0 0 30px var(--accent-glow);
+    color: var(--timer-color);
 }
 
 .time-label {
@@ -130,6 +181,7 @@ body {
     /* align with numbers roughly */
     opacity: 0.5;
     animation: pulse 2s infinite;
+    color: var(--timer-color);
 }
 
 @keyframes pulse {
@@ -245,8 +297,8 @@ body {
 .calendar-accordion {
     width: 100%;
     margin-top: 3rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     text-align: left;
 }
 
@@ -302,11 +354,11 @@ body {
 }
 
 .calendar-list::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--scroll-track);
 }
 
 .calendar-list::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--scroll-thumb);
     border-radius: 4px;
 }
 
@@ -315,7 +367,7 @@ body {
     justify-content: space-between;
     padding: 0.8rem 1rem;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--row-bg);
     font-size: 0.95rem;
 }
 
@@ -354,5 +406,90 @@ body {
     .calendar-iftar {
         margin-left: 0;
         font-size: 0.9rem;
+    }
+}
+
+/* Theme Selector UI */
+.theme-accordion {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    border-top: none;
+    border-bottom: none;
+}
+
+.theme-accordion .accordion-header {
+    border-bottom: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.theme-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1.5rem 0.5rem;
+    gap: 1rem;
+}
+
+.theme-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform 0.2s, opacity 0.2s;
+    outline: none;
+    opacity: 0.7;
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.theme-btn.active {
+    opacity: 1;
+}
+
+.theme-btn.active .theme-preview {
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 12px var(--accent-glow);
+    transform: scale(1.15);
+}
+
+.theme-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid rgba(150, 150, 150, 0.3);
+    transition: all 0.3s ease;
+}
+
+.theme-preview.black {
+    background: #000000;
+}
+
+.theme-preview.mosque {
+    background: linear-gradient(135deg, #1b2742, #091221);
+}
+
+.theme-preview.arabesque {
+    background: #2a1921;
+}
+
+.theme-preview.dynamic {
+    background: linear-gradient(135deg, #87CEEB 50%, #091221 50%);
+    font-size: 1.2rem;
+}
+
+@media (max-width: 400px) {
+    .theme-preview {
+        width: 38px;
+        height: 38px;
+    }
+
+    .theme-preview.dynamic {
+        font-size: 1rem;
     }
 }
