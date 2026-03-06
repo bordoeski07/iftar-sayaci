@@ -240,3 +240,117 @@ body {
         margin-top: -1rem;
     }
 }
+
+/* Calendar Accordion */
+.calendar-accordion {
+    width: 100%;
+    margin-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+.accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 1.1rem;
+    padding: 1.5rem 0.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 300;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.accordion-header:hover {
+    opacity: 1;
+}
+
+.arrow {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.arrow.open {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+.calendar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 0.5rem 1.5rem 0.5rem;
+    max-height: 40vh;
+    overflow-y: auto;
+    font-weight: 300;
+}
+
+/* Custom Scrollbar */
+.calendar-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.calendar-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.calendar-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.calendar-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
+}
+
+.calendar-row.today {
+    background: rgba(46, 139, 87, 0.2);
+    border: 1px solid rgba(46, 139, 87, 0.5);
+    color: #a8e6cf;
+    font-weight: 400;
+}
+
+.calendar-date {
+    flex: 1;
+    text-align: left;
+}
+
+.calendar-imsak,
+.calendar-iftar {
+    margin-left: 1rem;
+    opacity: 0.7;
+}
+
+.today .calendar-imsak,
+.today .calendar-iftar {
+    opacity: 1;
+}
+
+@media (max-width: 400px) {
+    .calendar-row {
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .calendar-imsak,
+    .calendar-iftar {
+        margin-left: 0;
+        font-size: 0.9rem;
+    }
+}
