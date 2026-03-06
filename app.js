@@ -13,7 +13,7 @@ const imsakiye2026 = {
     "2026-03-02": { imsak: "06:06", iftar: "19:02" },
     "2026-03-03": { imsak: "06:05", iftar: "19:03" },
     "2026-03-04": { imsak: "06:03", iftar: "19:04" },
-    "2026-03-05": { imsak: "06:02", iftar: "19:06" },
+    "2026-03-05": { imsak: "06:01", iftar: "19:06" },
     "2026-03-06": { imsak: "06:00", iftar: "19:07" },
     "2026-03-07": { imsak: "05:58", iftar: "19:08" },
     "2026-03-08": { imsak: "05:57", iftar: "19:09" },
@@ -33,7 +33,6 @@ const imsakiye2026 = {
 document.addEventListener('DOMContentLoaded', initApp);
 
 let countdownInterval = null;
-const DATE_FORMAT = 'YYYY-MM-DD';
 
 function initApp() {
     document.getElementById('loader').classList.add('hidden');
@@ -182,7 +181,6 @@ function updateTimer() {
             targetName = "SAHURA KALAN SÜRE";
             targetDisplayStr = nextTimings.imsak;
         } else {
-            // Unlikely to hit this due to the 'lastDateStr' check above, but safe fallback
             document.getElementById('title').textContent = "HAYIRLI BAYRAMLAR";
             document.getElementById('target-info').textContent = "Ramazan tamamlandı.";
             updateDisplay(0, 0, 0);
